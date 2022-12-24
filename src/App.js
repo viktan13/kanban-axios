@@ -1,14 +1,15 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
+import 'bootstrap/dist/css/bootstrap.css';
+import Column from "./Column";
+
 
 function App() {
-
-    const [cards, setCards] = useState([]);
+    const [statuses, setStatuses] = useState([]);
     const getStatuses = () => {
-        axios.get('http://localhost:5000/statuses')
+        axios.get('https://expressjs-server.up.railway.app/statuses')
             .then(response => {
-                console.log(response);
-                setCards(response.data)
+                setStatuses(response.data)
             })
             .catch(err => {
                 console.log(err);
@@ -22,6 +23,15 @@ function App() {
     return (
         <div>
             <h1>Kanban Board + Axios</h1>
+            <div className="container text-center">
+                <div className="row align-items-start">
+                    {statuses.map(el => (
+
+                            <Column status={el} key={el._id}/>
+
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }
