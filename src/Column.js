@@ -1,7 +1,7 @@
 import React from 'react';
 import Task from "./Task";
 
-const Column = ({status, tasks, deleteTask, updateTask}) => {
+const Column = ({status, tasks, deleteTask, updateTask, statuses, priorities}) => {
     return (
         <div className="col">
             <h2>
@@ -14,6 +14,8 @@ const Column = ({status, tasks, deleteTask, updateTask}) => {
                         key={el._id}
                         deleteTask={deleteTask}
                         updateTask={updateTask}
+                        statuses={statuses}
+                        priorities={priorities}
                     />
                 ))}
         </div>

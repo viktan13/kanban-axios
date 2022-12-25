@@ -78,6 +78,8 @@ function App() {
                             tasks={tasks}
                             deleteTask={deleteTask}
                             updateTask={updateTask}
+                            statuses={statuses}
+                            priorities={priorities}
                         />
                     ))}
                 </div>
