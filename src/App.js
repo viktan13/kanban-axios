@@ -61,16 +61,24 @@ function App() {
             .catch(err => console.log(err));
     }
 
+    function fixTask() {
+        const taskToFix = tasks.find(el => el._id === '63a7433902113f7cec89eab6');
+        const updTask = {...taskToFix, status: 'done'}
+        console.log(updTask);
+        updateTask(updTask);
+    }
+
     return (
         <div>
             <h1 className="text-center">Kanban Board + Axios</h1>
+            <button onClick={fixTask}>Fix</button>
             <CreateTaskModal
                 createTask={createTask}
                 statuses={statuses}
                 priorities={priorities}
             />
-            <div className="container text-center">
-                <div className="row align-items-start">
+            <div className="container text-center" >
+                <div className="row align-items-start" >
                     {statuses.map(el => (
                         <Column
                             status={el}

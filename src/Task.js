@@ -14,8 +14,22 @@ const Task = ({task, deleteTask, updateTask, statuses, priorities}) => {
 
     console.log(priorities);
 
+    function moveCardLeft() {
+        const status = statuses.find(el => el.title === task.status);
+        const updTask = {...task, status: statuses[statuses.indexOf(status) - 1].title};
+        updateTask(updTask);
+    }
+
+    function moveCardRight() {
+        const status = statuses.find(el => el.title === task.status);
+        const updTask = {...task, status: statuses[statuses.indexOf(status) + 1].title};
+        updateTask(updTask);
+    }
+
+
+
     return (
-        <div className="card">
+        <div className="card mb-3">
                 <div className="card-body">
                     <h5 className="card-title">{task.name}</h5>
                     <p className="card-text">{task.description}</p>
@@ -40,14 +54,21 @@ const Task = ({task, deleteTask, updateTask, statuses, priorities}) => {
                 <div className="card-body">
                     <button
                         className="btn btn-outline-primary"
-                        disabled
+                        disabled={statuses[0].title === task.status}
+                        onClick={moveCardLeft}
                     >←</button>
-                    <button className="btn btn-outline-success">Update</button>
+                    <button
+                        className="btn btn-outline-success"
+                    >Update</button>
                     <DeleteTaskModal
                         task={task}
                         deleteTask={deleteTask}
                     />
-                    <button className="btn btn-outline-primary">→</button>
+                    <button
+                        className="btn btn-outline-primary"
+                        disabled={statuses[statuses.length - 1].title === task.status}
+                        onClick={moveCardRight}
+                    >→</button>
                 </div>
         </div>
     );
