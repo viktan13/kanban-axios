@@ -3,7 +3,12 @@ import DeleteTaskModal from "./DeleteTaskModal";
 
 const Task = ({task, deleteTask, updateTask}) => {
     function upButtonHandler() {
-        const updTask = {...task, priority: task.priority + 1}
+        const updTask = {...task, priority: +task.priority + 1}
+        updateTask(updTask);
+    }
+
+    function downButtonHandler() {
+        const updTask = {...task, priority: +task.priority - 1}
         updateTask(updTask);
     }
 
@@ -19,8 +24,13 @@ const Task = ({task, deleteTask, updateTask}) => {
                         <button
                             className="btn btn-outline-secondary btn-sm"
                             onClick={upButtonHandler}
+                            disabled={task.priority == 10}
                         >↑</button>
-                        <button className="btn btn-outline-secondary btn-sm">↓</button>
+                        <button
+                            className="btn btn-outline-secondary btn-sm"
+                            onClick={downButtonHandler}
+                            disabled={task.priority == 1}
+                        >↓</button>
                     </li>
                     <li className="list-group-item">Status: {task.status}</li>
                 </ul>

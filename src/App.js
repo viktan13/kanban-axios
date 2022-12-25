@@ -45,7 +45,7 @@ function App() {
     }
 
     const updateTask = (task) => {
-        axios.patch(`https://expressjs-server.up.railway.app/tasks/${task.id}`, task)
+        axios.patch(`https://expressjs-server.up.railway.app/tasks/${task._id}`, task)
             .then(res => {
                 getTasks();
             })
