@@ -5,7 +5,7 @@ const Column = ({status, tasks}) => {
     return (
         <div className="col">
             <h2>
-                {status.title}
+                {status.title.toUpperCase()}
             </h2>
             {tasks.filter(el => el.status === status.title)
                 .map(el => (

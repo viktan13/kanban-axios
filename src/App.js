@@ -2,11 +2,13 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import Column from "./Column";
+import CreateTaskModal from "./CreateTaskModal";
 
 
 function App() {
     const [statuses, setStatuses] = useState([]);
     const [tasks, setTasks] = useState([])
+    const [priorities, setPriorities] = useState(Array.from({length: 10}, (_, i) => i + 1))
     const getStatuses = () => {
         axios.get('https://expressjs-server.up.railway.app/statuses')
             .then(response => {
@@ -32,11 +34,25 @@ function App() {
         getTasks();
     }, [])
 
-
+    const createTask = (task) => {
+        axios.post('https://expressjs-server.up.railway.app/tasks', task)
+            .then(res => {
+                console.log(res);
+                getTasks();
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 
     return (
         <div>
-            <h1>Kanban Board + Axios</h1>
+            <h1 className="text-center">Kanban Board + Axios</h1>
+            <CreateTaskModal
+                createTask={createTask}
+                statuses={statuses}
+                priorities={priorities}
+            />
             <div className="container text-center">
                 <div className="row align-items-start">
                     {statuses.map(el => (
