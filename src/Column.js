@@ -1,7 +1,7 @@
 import React from 'react';
 import Task from "./Task";
 
-const Column = ({status, tasks}) => {
+const Column = ({status, tasks, deleteTask, updateTask}) => {
     return (
         <div className="col">
             <h2>
@@ -9,7 +9,12 @@ const Column = ({status, tasks}) => {
             </h2>
             {tasks.filter(el => el.status === status.title)
                 .map(el => (
-                    <Task task={el} key={el._id}/>
+                    <Task
+                        task={el}
+                        key={el._id}
+                        deleteTask={deleteTask}
+                        updateTask={updateTask}
+                    />
                 ))}
         </div>
     );

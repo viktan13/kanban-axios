@@ -18,6 +18,8 @@ function CreateTaskModal(props) {
     function saveButtonHandler() {
         createTask({name, description, priority, status});
         toggle();
+        setName('');
+        setDescription('');
     }
 
     return (

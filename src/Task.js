@@ -1,6 +1,12 @@
 import React from 'react';
+import DeleteTaskModal from "./DeleteTaskModal";
 
-const Task = ({task}) => {
+const Task = ({task, deleteTask, updateTask}) => {
+    function upButtonHandler() {
+        const updTask = {...task, priority: task.priority + 1}
+        updateTask(updTask);
+    }
+
     return (
         <div className="card">
                 <div className="card-body">
@@ -10,7 +16,10 @@ const Task = ({task}) => {
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">
                         Priority: {task.priority}
-                        <button className="btn btn-outline-secondary btn-sm">↑</button>
+                        <button
+                            className="btn btn-outline-secondary btn-sm"
+                            onClick={upButtonHandler}
+                        >↑</button>
                         <button className="btn btn-outline-secondary btn-sm">↓</button>
                     </li>
                     <li className="list-group-item">Status: {task.status}</li>
@@ -18,7 +27,10 @@ const Task = ({task}) => {
                 <div className="card-body">
                     <button className="btn btn-outline-primary">←</button>
                     <button className="btn btn-outline-success">Update</button>
-                    <button className="btn btn-outline-danger">Delete</button>
+                    <DeleteTaskModal
+                        task={task}
+                        deleteTask={deleteTask}
+                    />
                     <button className="btn btn-outline-primary">→</button>
                 </div>
         </div>

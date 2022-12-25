@@ -37,12 +37,28 @@ function App() {
     const createTask = (task) => {
         axios.post('https://expressjs-server.up.railway.app/tasks', task)
             .then(res => {
-                console.log(res);
                 getTasks();
             })
             .catch(err => {
                 console.log(err);
             });
+    }
+
+    const updateTask = (task) => {
+        axios.patch(`https://expressjs-server.up.railway.app/tasks/${task.id}`, task)
+            .then(res => {
+                getTasks();
+            })
+            .catch(err => console.log(err));
+    }
+
+    const deleteTask = (id) => {
+        axios.delete(`https://expressjs-server.up.railway.app/tasks/${id}`)
+            .then(res => {
+                getTasks();
+                alert(res.data);
+            })
+            .catch(err => console.log(err));
     }
 
     return (
@@ -56,7 +72,13 @@ function App() {
             <div className="container text-center">
                 <div className="row align-items-start">
                     {statuses.map(el => (
-                        <Column status={el} key={el._id} tasks={tasks}/>
+                        <Column
+                            status={el}
+                            key={el._id}
+                            tasks={tasks}
+                            deleteTask={deleteTask}
+                            updateTask={updateTask}
+                        />
                     ))}
                 </div>
             </div>
