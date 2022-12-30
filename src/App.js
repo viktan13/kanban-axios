@@ -10,7 +10,7 @@ function App() {
     const [tasks, setTasks] = useState([])
     const [priorities, ] = useState(Array.from({length: 10}, (_, i) => i + 1))
     const getStatuses = () => {
-        axios.get('https://expressjs-server.up.railway.app/statuses')
+        axios.get(process.env.REACT_APP_API_URL_STATUSES)
             .then(response => {
                 setStatuses(response.data)
             })
@@ -20,7 +20,7 @@ function App() {
     }
 
     const getTasks = () => {
-        axios.get('https://expressjs-server.up.railway.app/tasks')
+        axios.get(process.env.REACT_APP_API_URL_TASKS)
             .then(res => {
                 setTasks(res.data)
             })
@@ -35,7 +35,7 @@ function App() {
     }, [])
 
     const createTask = (task) => {
-        axios.post('https://expressjs-server.up.railway.app/tasks', task)
+        axios.post(process.env.REACT_APP_API_URL_TASKS, task)
             .then(res => {
                 getTasks();
             })
@@ -45,7 +45,7 @@ function App() {
     }
 
     const updateTask = (task) => {
-        axios.patch(`https://expressjs-server.up.railway.app/tasks/${task._id}`, task)
+        axios.patch(`${process.env.REACT_APP_API_URL_TASKS}/${task._id}`, task)
             .then(res => {
                 getTasks();
             })
@@ -53,7 +53,7 @@ function App() {
     }
 
     const deleteTask = (id) => {
-        axios.delete(`https://expressjs-server.up.railway.app/tasks/${id}`)
+        axios.delete(`${process.env.REACT_APP_API_URL_TASKS}/${id}`)
             .then(res => {
                 getTasks();
                 alert(res.data);
